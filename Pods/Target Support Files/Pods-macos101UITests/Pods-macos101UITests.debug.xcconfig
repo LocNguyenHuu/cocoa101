@@ -1,0 +1,10 @@
+CODE_SIGN_IDENTITY =
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/BlueSSLService" "${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket" "${PODS_CONFIGURATION_BUILD_DIR}/CoreXLSX" "${PODS_CONFIGURATION_BUILD_DIR}/PostgresClientKit" "${PODS_CONFIGURATION_BUILD_DIR}/SQLite.swift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftCSV" "${PODS_CONFIGURATION_BUILD_DIR}/XMLCoder" "${PODS_CONFIGURATION_BUILD_DIR}/ZIPFoundation"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/BlueSSLService/SSLService.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CoreXLSX/CoreXLSX.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/PostgresClientKit/PostgresClientKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SQLite.swift/SQLite.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftCSV/SwiftCSV.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/XMLCoder/XMLCoder.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ZIPFoundation/ZIPFoundation.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/../Frameworks'
+OTHER_LDFLAGS = $(inherited) -l"sqlite3" -framework "CoreXLSX" -framework "PostgresClientKit" -framework "SQLite" -framework "SSLService" -framework "Socket" -framework "SwiftCSV" -framework "XMLCoder" -framework "ZIPFoundation"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods

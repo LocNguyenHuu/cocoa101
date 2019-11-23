@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8099A5352407F0F8DFF597946B811016"
-               BuildableName = "PostgresClientKit.framework"
-               BlueprintName = "PostgresClientKit"
+               BlueprintIdentifier = "3C9530A090C5F4B7C5DFC6421371885C"
+               BuildableName = "SwiftyJSON.framework"
+               BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

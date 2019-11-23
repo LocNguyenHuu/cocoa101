@@ -155,20 +155,24 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BlueSSLService/SSLService.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CoreXLSX/CoreXLSX.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PostgresClientKit/PostgresClientKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCSV/SwiftCSV.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XMLCoder/XMLCoder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BlueSSLService/SSLService.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CoreXLSX/CoreXLSX.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PostgresClientKit/PostgresClientKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCSV/SwiftCSV.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XMLCoder/XMLCoder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework"
 fi

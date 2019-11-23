@@ -6,11 +6,13 @@ target 'macos101' do
   use_frameworks!
 
   # Pods for macos101
-  pod "SwiftCSV"
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'CSV.swift', '~> 2.4.2'
   pod 'CoreXLSX', '~> 0.9.1'
   pod 'PostgresClientKit', '~> 1.0'
   pod 'SQLite.swift', '~> 0.12.0'
-
+  # remove
+  pod "SwiftCSV"
   target 'macos101Tests' do
     inherit! :search_paths
     # Pods for testing

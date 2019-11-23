@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftCSV
+import CSV
 
 class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
@@ -38,7 +39,8 @@ class ViewController: NSViewController {
     var cellHighlightColor: NSColor?
     var cellHighlightGradient: NSGradient?
     // our variable
-    var data: [[String: String]] = [[:]]
+//    var data: [[String: String]] = [[:]]
+    var data: [String] = []
     var columnNames:[String] = ["Table","View","Welcome"] {
         didSet {
             tableViewColumnConfig()
@@ -82,14 +84,15 @@ class ViewController: NSViewController {
         people.append(person1)
         people.append(person2)
         
+        data = ["a", "b", "c"]
         // adding people
-        data = [
-            [
-                "firstName" : "Ragnar",
-                "lastName" : "Lothbrok",
-                "mobileNumber" : "555-1234"
-            ]
-        ]
+//        data = [
+//            [
+//                "firstName" : "Ragnar",
+//                "lastName" : "Lothbrok",
+//                "mobileNumber" : "555-1234"
+//            ]
+//        ]
         
         // reload tableview
 //        tableView.reloadData()
@@ -118,7 +121,7 @@ class ViewController: NSViewController {
             if (result != nil) {
                 let path = result!.path
                 filename_field.stringValue = path
-                loadCSVData(pathToCSV: path)
+                loadCSVDataLogic(pathToCSV: path)
             }
         } else {
             // User clicked on "Cancel"
@@ -126,21 +129,39 @@ class ViewController: NSViewController {
         }
 //        tableView.reloadData()
     }
-    
-    func loadCSVData(pathToCSV: String) {
-        print("Loading csv data...")
-        do {
-            // From a file (with errors)
-            let csvFile: CSV = try CSV(url: URL(fileURLWithPath: pathToCSV))
-//            print(csvFile.header)
-            columnNames = csvFile.header
-        
-            print(csvFile.namedRows)
-//            print(csvFile.namedColumns)
-        } catch {
-            
-        }
+    struct DecodableExample: Decodable {
+        let intKey: Int
+        let stringKey: String
+        let optionalStringKey: String?
     }
+    
+    func loadCSVDataLogic(pathToCSV: String) {
+        let stream = InputStream(fileAtPath: pathToCSV)!
+//        let csv = try! CSVReader(stream: stream)
+        let csv = try! CSVReader(stream: stream, hasHeaderRow: true, trimFields: false, delimiter: ",", whitespaces: .alphanumerics)
+        print(csv.headerRow)
+        while let row = csv.next() {
+            print("<============================================================")
+            print("\(row)")
+//            data.append(row)
+        }
+        print(data)
+    }
+    
+//    func loadCSVData(pathToCSV: String) {
+//        print("Loading csv data...")
+//        do {
+//            // From a file (with errors)
+//            let csvFile: CSV = try CSV(url: URL(fileURLWithPath: pathToCSV))
+////            print(csvFile.header)
+//            columnNames = csvFile.header
+//
+//            print(csvFile.namedRows)
+////            print(csvFile.namedColumns)
+//        } catch {
+//
+//        }
+//    }
     
     func tableViewColumnConfig() {
         let tableColumns = tableView.tableColumns
@@ -178,7 +199,8 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
 //        return (data.count)
         print("~~~~~~~~~>", columnNames.count)
-        return 20
+        return data.count
+//        return 20
     }
     
     func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
@@ -186,24 +208,45 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        let person = data[row]
-//
-//        guard let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView else { return nil }
-//        cell.textField?.stringValue = person[tableColumn!.identifier.rawValue]!
-//
-//        return cell
         
-        let cell = headerCell(for:(tableColumn?.title)!)
-         
-         tableColumn?.headerCell = cell
-         
-         let text = "Cell" + "\(row)"
+//        let cell = headerCell(for:(tableColumn?.title)!)
+//
+//         tableColumn?.headerCell = cell
+//
+//         let text = "Cell" + "\(row)"
+//
+//         let key = (tableColumn?.identifier)!
+//
+//         var view = tableView.makeView(withIdentifier: key, owner: self)
+//
+//         var  textField: NSTextField?
+//         if view == nil {
+//             textField = NSTextField()
+//             textField?.drawsBackground = false
+//             textField?.isBezeled = false
+//             textField?.alignment = .center
+//             textField?.textColor = NSColor.textColor
+//             textField?.font = NSFont.systemFont(ofSize: 11)
+//             textField?.identifier = identifier
+//             view = textField
+//         }
+//         else{
+//             textField = view as? NSTextField
+//         }
+//
+//
+//         textField?.isEditable = true
+//        textField?.stringValue = "alibaba"
+//         return view
         
-         let key = (tableColumn?.identifier)!
-         
-         var view = tableView.makeView(withIdentifier: key, owner: self)
-         
-         var  textField: NSTextField?
+//        var view: NSTableCellView?
+        
+//        if tableColumn!.identifier.rawValue == "DateColumn" {
+          //2
+        let key = (tableColumn?.identifier)!
+          var view = tableView.makeView(withIdentifier: key, owner: self)
+          var  textField: NSTextField?
+            
          if view == nil {
              textField = NSTextField()
              textField?.drawsBackground = false
@@ -217,19 +260,25 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
          else{
              textField = view as? NSTextField
          }
-         
-//         if let cellTextColor = cellTextColor {
-//             textField?.textColor = cellTextColor
-//         }
-//         if let cellFont = cellFont {
-//             textField?.font = cellFont
-//         }
-//         textField?.alignment = cellAlignment
-         
-         textField?.isEditable = true
-//         textField?.stringValue = text
-        textField?.stringValue = "alibaba"
-         return view
+            textField?.stringValue = data[row]
+            textField?.sizeToFit()
+          
+//        }
+        return view
+        
+//        let person = people[row]
+//        
+//        guard let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView else { return nil }
+//        
+//        if (tableColumn?.identifier)!.rawValue == "firstName" {
+//            cell.textField?.stringValue = person.firstName
+//        } else if (tableColumn?.identifier)!.rawValue == "lastName" {
+//            cell.textField?.stringValue = person.lastName
+//        } else {
+//            cell.textField?.stringValue = person.mobileNumber
+//        }
+//        
+//        return cell
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
